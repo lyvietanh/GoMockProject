@@ -1,0 +1,124 @@
+syntax = "proto3";
+package pb;
+option go_package="anhlv11/go-mock-project/pb";
+import "google/protobuf/timestamp.proto";
+
+service UserGrpc{
+    rpc Login(GrpcLoginRequest) returns (GrpcLoginResponse){}
+    rpc VerifyAuth(GrpcVerifyAuthRequest) returns (GrpcVerifyAuthResponse){}
+    rpc RegisterUser(GrpcRegisterUserRequest) returns (GrpcRegisterUserResponse){}
+    rpc UpdateUserProfile(GrpcUpdateUserProfileRequest) returns (GrpcUpdateUserProfileResponse){}
+    rpc UpdateUserPassword(GrpcUpdateUserPasswordRequest) returns (GrpcUpdateUserPasswordResponse){}
+    rpc ViewBookingHistory(GrpcViewBookingHistoryRequest) returns (GrpcViewBookingHistoryResponse){}
+}
+
+message GrpcLoginRequest {
+    string email=1;
+    string password=2;
+}
+
+message GrpcLoginResponse {
+    string access_token=1;
+    string refresh_token=2;
+    int64 expire_in=3;
+    google.protobuf.Timestamp last_login_at=4; 
+}
+
+message GrpcVerifyAuthRequest {
+    string access_token=1;
+}
+
+message GrpcVerifyAuthResponse {
+    string email=1;
+    string role_id=2;
+    int64 expire_in=3;
+}
+
+message GrpcUpdateUserPasswordRequest {
+    string email=1;
+    string current_password=2;
+    string new_password=3;
+}
+
+message GrpcUpdateUserPasswordResponse {
+    google.protobuf.Timestamp update_date=1;
+}
+
+message GrpcRegisterUserRequest {
+    string email=1;
+    string title=2;
+    string last_name=3; 
+    string first_name=4; 
+    google.protobuf.Timestamp date_of_birth=5; 
+    string phone=6; 
+    string travel_doc_type=7; 
+    string travel_doc_number=8; 
+    string ffp_number=9; 
+    string password=10;
+    string role_id=11;
+}
+
+message GrpcRegisterUserResponse {
+    google.protobuf.Timestamp register_date=1;
+}
+
+message GrpcUpdateUserProfileRequest {
+    string email=1;
+    string title=2;
+    string last_name=3; 
+    string first_name=4; 
+    google.protobuf.Timestamp date_of_birth=5; 
+    string phone=6; 
+    string travel_doc_type=7; 
+    string travel_doc_number=8; 
+    string ffp_number=9; 
+    string password=10;
+    string role_id=11;
+    bool enabled=12;
+}
+
+message GrpcUpdateUserProfileResponse {
+    google.protobuf.Timestamp update_date=1;
+}
+
+message GrpcViewBookingHistoryRequest {
+    string email=1;
+}
+
+message GrpcViewBookingHistoryResponse {
+    string email=1;
+    repeated GrpcVbhResItem items=2;
+}
+
+message GrpcVbhResItem {
+    string reservation_code=1;
+    string contact_email=2;
+    string contact_phone=3; 
+    string currency_code=4;
+    double total_price=5;
+    repeated GrpcVbhResItemFlightOption flight_options=6;
+    repeated GrpcVbhResItemPassenger passengers=7;    
+}
+
+message GrpcVbhResItemFlightOption  {
+   int64	id=1;
+   string	origin_airport_code   =2;
+   string	destination_airport_code =3;
+   google.protobuf.Timestamp 	departure_date_time      =4;
+   google.protobuf.Timestamp 	arrival_date_time        =5;
+   string	booking_class           =6;
+   string	flight_number           =7;
+   int32	flight_duration         =8;
+   string	currency_code           =9;
+   double	price                  =10;
+}
+
+message GrpcVbhResItemPassenger{
+    string title=1;
+    string last_name=2;
+    string first_name=3;    
+    google.protobuf.Timestamp date_of_birth=4;
+    string travel_doc_type=5;
+    string travel_doc_number=6;
+    string ffp_number=7;
+}

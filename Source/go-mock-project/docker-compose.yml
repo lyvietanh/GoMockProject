@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  flight-grpc:
+    build: ./grpc/flight-grpc
+    ports:
+      - "7071:8080"

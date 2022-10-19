@@ -1,0 +1,78 @@
+syntax = "proto3";
+package pb;
+option go_package="anhlv11/go-mock-project/pb";
+import "google/protobuf/timestamp.proto";
+
+service BookingGrpc{
+    rpc BookFlight(GrpcBookFlightRequest) returns (GrpcBookFlightResponse){}
+    rpc ViewBooking(GrpcViewBookingRequest) returns (GrpcBookFlightResponse){}
+    rpc CancelBooking(GrpcCancelBookingRequest) returns (GrpcCancelBookingResponse){}
+}
+
+message GrpcBookFlightRequest {
+    string currencyCode=1;
+    string contact_email=2;
+    string contact_phone=3; 
+    repeated int64 flightOptionIds=4;
+    repeated GrpcBfReqPassenger passengers=5;
+}
+
+message GrpcBfReqPassenger{
+    string title=1;
+    string last_name=2;
+    string first_name=3;
+    google.protobuf.Timestamp date_of_birth=4;
+    string travel_doc_type=5;
+    string travel_doc_number=6;
+    string ffp_number=7;
+}
+
+message GrpcBookFlightResponse {
+    string reservation_code=1;
+    string contact_email=2;
+    string contact_phone=3; 
+    string currency_code=4;
+    double total_price=5;
+    repeated GrpcBfResFlightOption flight_options=6;
+    repeated GrpcBfResPassenger passengers=7;    
+}
+
+message GrpcBfResFlightOption  {
+   int64	id=1;
+   string	origin_airport_code   =2;
+   string	destination_airport_code =3;
+   google.protobuf.Timestamp 	departure_date_time      =4;
+   google.protobuf.Timestamp 	arrival_date_time        =5;
+   string	booking_class           =6;
+   string	flight_number           =7;
+   int32	flight_duration         =8;
+   string	currency_code           =9;
+   double	price                  =10;
+}
+
+message GrpcBfResPassenger{
+    string title=1;
+    string last_name=2;
+    string first_name=3;    
+    google.protobuf.Timestamp date_of_birth=4;
+    string travel_doc_type=5;
+    string travel_doc_number=6;
+    string ffp_number=7;
+}
+
+message GrpcViewBookingRequest {
+    string reservation_code=1;
+    string last_name=2;
+    string travel_doc_number=3;
+}
+
+message GrpcCancelBookingRequest {
+    string reservation_code=1;
+    string last_name=2;
+    string travel_doc_number=3;
+}
+
+message GrpcCancelBookingResponse {
+    string reservation_code=1;
+    google.protobuf.Timestamp cancel_date=2;
+}

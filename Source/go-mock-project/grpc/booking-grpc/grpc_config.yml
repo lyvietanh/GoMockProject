@@ -1,0 +1,12 @@
+server:
+  port: 7072
+
+database:
+  driver_name: postgres
+  host: 127.0.0.1
+  port: 5432
+  username: postgres
+  password: sql#123456
+  db_name: db_go_mock_project
+  ssl_mode: disable
+  time_zone: Asia/Ho_Chi_Minh

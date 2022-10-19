@@ -1,0 +1,89 @@
+syntax = "proto3";
+package pb;
+option go_package="anhlv11/go-mock-project/pb";
+
+import "google/protobuf/timestamp.proto";
+
+service FlightGrpc{
+   rpc CreateFlight(GrpcCreateFlightRequest) returns (GrpcCreateFlightResponse){}
+   rpc UpdateFlight(GrpcUpdateFlightRequest) returns (GrpcUpdateFlightResponse){}
+   rpc SearchOneWayFlight(GrpcSearchOneWayFlightRequest) returns (GrpcSearchOneWayFlightResponse){}
+   rpc SearchRoundTripFlight(GrpcSearchRoundTripFlightRequest) returns (GrpcSearchRoundTripFlightResponse){}
+}
+
+message GrpcCreateFlightRequest{
+   string origin_airport_code     =1;
+   string destination_airport_code=2;
+   google.protobuf.Timestamp departure_date_time  =3;   
+   string booking_class          =4;
+   string flight_number          =5;
+   int32 flight_duration        =6;
+   int32 seat_remaining         =7;
+   string currency_code          =8;
+   double price                  =9;
+}
+
+message GrpcCreateFlightResponse{
+	int64 id=1;
+	string create_by=2;
+	google.protobuf.Timestamp create_at=3;
+}       
+
+message GrpcUpdateFlightRequest{
+   int64	id                        =1;
+   google.protobuf.Timestamp departure_date_time  =2;
+   string booking_class          =3;
+   string flight_number          =4;
+   int32 flight_duration        =5;
+   int32 seat_remaining         =6;
+   string currency_code          =7;
+   double price                  =8;
+   bool	enabled                   =9;
+}
+
+message GrpcUpdateFlightResponse{
+   int64 id=1;
+   string	update_by                   =2;
+   google.protobuf.Timestamp	update_at =3;
+}
+
+message  GrpcSearchOneWayFlightRequest{
+	string origin_airport_code=1;
+   string destination_airport_code=2;
+	google.protobuf.Timestamp departure_date    =3;
+	int32 seats            =4;
+	string booking_classes   =5;
+
+}
+
+message  GrpcSearchOneWayFlightResponse{
+	repeated GrpcSfResFlightOption departure_flight_options=1;
+}
+
+message  GrpcSearchRoundTripFlightRequest{
+	string origin_airport_code=1;
+   string destination_airport_code=2;
+   google.protobuf.Timestamp	departure_date     =3;
+   google.protobuf.Timestamp	return_date        =4;
+   int32	seats                =5;
+   string	booking_classes    =6;
+}
+
+message  GrpcSearchRoundTripFlightResponse{
+   repeated GrpcSfResFlightOption 	departure_flight_options=1;
+   repeated GrpcSfResFlightOption 	return_flight_options   =2;
+}
+
+message GrpcSfResFlightOption  {
+   int64	id=1;
+   string	origin_airport_code   =2;
+   string	destination_airport_code =3;
+   google.protobuf.Timestamp 	departure_date_time      =4;
+   google.protobuf.Timestamp 	arrival_date_time        =5;
+   string	booking_class           =6;
+   string	flight_number           =7;
+   int32	flight_duration         =8;
+   int32	seat_remaining          =9;
+   string	currency_code           =10;
+   double	price                  =11;
+}

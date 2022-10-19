@@ -1,0 +1,13 @@
+server:
+  port: 8081
+
+grpc:
+  flight_grpc:
+    host: 127.0.0.1
+    port: 7071
+  booking_grpc:
+    host: 127.0.0.1
+    port: 7072
+  user_grpc:
+    host: 127.0.0.1
+    port: 7073

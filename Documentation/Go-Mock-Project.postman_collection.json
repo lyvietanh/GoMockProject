@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "7f395ec0-72d4-4db8-bb6a-890bdaf97c72",
+		"name": "Go-Mock-Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1480688"
+	},
+	"item": [
+		{
+			"name": "Flight service",
+			"item": [
+				{
+					"name": "Search One way Flight",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/flight/HAN-SGN/2022-10-10?seats=1&bookingClasses=BUSINESS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"flight",
+								"HAN-SGN",
+								"2022-10-10"
+							],
+							"query": [
+								{
+									"key": "seats",
+									"value": "1"
+								},
+								{
+									"key": "bookingClasses",
+									"value": "BUSINESS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Round trip Flight",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/flight/HAN-SGN/2022-10-10/2022-10-20?seats=1&bookingClasses=BUSINESS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"flight",
+								"HAN-SGN",
+								"2022-10-10",
+								"2022-10-20"
+							],
+							"query": [
+								{
+									"key": "seats",
+									"value": "1"
+								},
+								{
+									"key": "bookingClasses",
+									"value": "BUSINESS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Flight",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YnNjcmliZXJAZnNvZnQuY29tLnZuIiwiZnVsbE5hbWUiOiJ7VEVTVCB0cnVlfSB7VklFVCBBTkggdHJ1ZX0iLCJleHAiOjE2NjUwMzA5ODYsImlhdCI6MTY2NTAzMDA4NiwiaXNzIjoiR09fTU9DS19QUk9KRUNUIiwic3ViIjoiQUNDRVNTX1RPS0VOIn0.pdM9pZjGyA3hYsMHaOPDQuntcQWAmztBMSrf9s-JS6o",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"originAirportCode\": \"HAN\",\r\n    \"destinationAirportCode\": \"SGN\",\r\n    \"departureDateTime\": \"2022-10-10T12:00:00\",\r\n    \"bookingClass\": \"BUSINESS\",\r\n    \"flightNumber\": \"VN220\",\r\n    \"flightDuration\": 120,\r\n    \"seatRemaining\": 10,\r\n    \"currencyCode\": \"VND\",\r\n    \"price\": 3750000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/flight",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"flight"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Flight",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identifier\": {\r\n        \"id\": 8\r\n    },\r\n    \"departureDateTime\": \"2022-10-10T11:00:00\",\r\n    \"bookingClass\": \"BUSINESS\",\r\n    \"flightNumber\": \"VN213\",\r\n    \"flightDuration\": 130,\r\n    \"seatRemaining\": 10,\r\n    \"currencyCode\": \"VND\",\r\n    \"price\": 2850000,\r\n    \"enabled\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/flight",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"flight"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking service",
+			"item": [
+				{
+					"name": "Book Flight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currencyCode\": \"VND\",\r\n    \"contactEmail\": \"subscriber@mail.com\",\r\n    \"contactPhone\": \"09123456789\",\r\n    \"flightOptionIds\": [\r\n        8\r\n    ],\r\n    \"passengers\": [\r\n        {\r\n            \"title\": \"MR \",\r\n            \"lastName\": \"LY\",\r\n            \"firstName\": \"VIET ANH\",\r\n            \"dateOfBirth\": \"1986-10-30\",\r\n            \"travelDocType\": \"P\",\r\n            \"travelDocNumber\": \"B12345678\",\r\n            \"ffpNumber\": \"9876543210\"\r\n        },\r\n        {\r\n            \"title\": \"MISS\",\r\n            \"lastName\": \"LY\",\r\n            \"firstName\": \"HA MY\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Flight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reservationCode\": \"EVSNYB\",\r\n    \"lastName\": \"LY\",\r\n    \"travelDocNumber\": \"B12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/book/2W2KD6?lastName=LY&travelDocNumber=B12345678",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"book",
+								"2W2KD6"
+							],
+							"query": [
+								{
+									"key": "lastName",
+									"value": "LY"
+								},
+								{
+									"key": "travelDocNumber",
+									"value": "B12345678"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer service",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"subscriber@mail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"subscriber@mail.com\",\r\n    \"password\": \"123456\",\r\n    \"title\": \"MRS\",\r\n    \"lastName\": \"TEST\",\r\n    \"firstName\": \"VIET ANH\",\r\n    \"dateOfBirth\": \"1999-10-30\",\r\n    \"travelDocType\": \"P\",\r\n    \"travelDocNumber\": \"B12345678\",\r\n    \"ffpNumber\": \"9876543211\",\r\n    \"phone\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YnNjcmliZXJAZnNvZnQuY29tLnZuIiwiZnVsbE5hbWUiOiJ7VEVTVCB0cnVlfSB7U1VCU0NSSUJFUiB0cnVlfSIsImV4cCI6MTY2NTAzMjg3NywiaWF0IjoxNjY1MDMxOTc3LCJpc3MiOiJHT19NT0NLX1BST0pFQ1QiLCJzdWIiOiJBQ0NFU1NfVE9LRU4ifQ.lY9DeicscNdIwFTxovyatmzOb2plj5L1xt5D8Yb0JHY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"123456\",\r\n    \"newPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/auth/change-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YnNjcmliZXJAZnNvZnQuY29tLnZuIiwiZnVsbE5hbWUiOiJ7VEVTVCB0cnVlfSB7U1VCU0NSSUJFUiB0cnVlfSIsImV4cCI6MTY2NTAzMjg3NywiaWF0IjoxNjY1MDMxOTc3LCJpc3MiOiJHT19NT0NLX1BST0pFQ1QiLCJzdWIiOiJBQ0NFU1NfVE9LRU4ifQ.lY9DeicscNdIwFTxovyatmzOb2plj5L1xt5D8Yb0JHY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"MRS\",\r\n    \"lastName\": \"TEST\",\r\n    \"firstName\": \"SUBSCRIBER\",\r\n    \"dateOfBirth\": \"1999-10-30\",\r\n    \"travelDocType\": \"P\",\r\n    \"travelDocNumber\": \"B12345678\",\r\n    \"ffpNumber\": \"9876543211\",\r\n    \"phone\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Booking History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaGx2MTFAZnNvZnQuY29tLnZuIiwiZnVsbE5hbWUiOiJ7TFkgdHJ1ZX0ge1ZJRVQgQU5IIHRydWV9IiwiZXhwIjoxNjY1MDQwNzM4LCJpYXQiOjE2NjUwMzk4MzgsImlzcyI6IkdPX01PQ0tfUFJPSkVDVCIsInN1YiI6IkFDQ0VTU19UT0tFTiJ9.Yz9Mvm5_6eg9zSTMdREW2N38kW5vBdPqRd_zVwmEB70",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8083/api/customer/booking-history?access-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"customer",
+								"booking-history"
+							],
+							"query": [
+								{
+									"key": "access-token",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

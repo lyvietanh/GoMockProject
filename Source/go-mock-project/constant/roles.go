@@ -1,0 +1,7 @@
+package constant
+
+const (
+	ROLE_ID_GUEST         = "GUEST"
+	ROLE_ID_SUBSCRIBER    = "SUBSCRIBER"
+	ROLE_ID_ADMINISTRATOR = "ADMINISTRATOR"
+)

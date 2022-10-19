@@ -1,0 +1,7 @@
+{
+  "go.testFlags": ["-count=1"],
+  "protoc": {
+    "options": ["--proto_path=proto"]
+  },
+  "editor.formatOnSave": true
+}
